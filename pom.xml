@@ -25,6 +25,11 @@
         </dependency>
         <dependency>
             <groupId>com.jnape.palatable</groupId>
+            <artifactId>shoki</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jnape.palatable</groupId>
             <artifactId>lambda</artifactId>
             <type>test-jar</type>
         </dependency>
