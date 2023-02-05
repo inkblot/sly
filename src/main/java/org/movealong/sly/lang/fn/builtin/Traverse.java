@@ -25,11 +25,13 @@ import lombok.NoArgsConstructor;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * <code>Traverse</code> inverts the nesting order of two nested functors, with the restriction the outer functor is
- * <code>Traversable</code> and the inner functor is <code>Applicative</code>. The carrier type of the nested functors
- * will also be transformed from <code>A</code> to <code>B</code>.
+ * <code>Traverse</code> transforms the carrier type <code>A</code> of a <code>Traversable</code> functor
+ * <code>Trav</code> into type <code>B</code> wrapped in the <code>Applicative</code> type <code>App</code>,
+ * and then inverts the nesting order of two functors <code>App</code> and <code>Trav</code>. The result is
+ * a value of type <code>B</code> wrapped in the <code>Traversable</code> functor <code>Trav</code> wrapped
+ * in the <code>Applicative</code> functor <code>App</code>.
  *
- * @param <A>       the input carrier type of the nested functors
+ * @param <A>       the carrier type of the input functor
  * @param <B>       the output carrier type of the nested functors
  * @param <Trav>    the <code>Traversable</code> type
  * @param <TravA>   type <code>Trav</code> with a carrier type of <code>A</code>
