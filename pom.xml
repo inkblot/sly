@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.movealong</groupId>
+        <artifactId>movealong-oss</artifactId>
+        <version>0.0.30</version>
+    </parent>
+
+    <artifactId>sly</artifactId>
+    <packaging>jar</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>sly</name>
+    <description>A framework built with lambda</description>
+    <url>https://github.com/inkblot/sly</url>
+    <scm>
+        <url>https://github.com/inkblot/sly</url>
+    </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.jnape.palatable</groupId>
+            <artifactId>lambda</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jnape.palatable</groupId>
+            <artifactId>lambda</artifactId>
+            <type>test-jar</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
