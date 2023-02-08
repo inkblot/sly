@@ -20,12 +20,12 @@
     <parent>
         <groupId>org.movealong</groupId>
         <artifactId>movealong-oss</artifactId>
-        <version>0.0.30</version>
+        <version>0.0.31</version>
     </parent>
 
     <artifactId>sly</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <name>sly</name>
     <description>A framework built with lambda</description>
     <url>https://github.com/inkblot/sly</url>
