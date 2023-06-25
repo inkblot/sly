@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Copyright (c) 2023 Nate Riffe
   ~
@@ -20,11 +21,11 @@
     <parent>
         <groupId>org.movealong</groupId>
         <artifactId>movealong-oss</artifactId>
-        <version>0.0.31</version>
+        <version>0.0.33</version>
     </parent>
 
     <artifactId>sly</artifactId>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
     <version>0.0.4-SNAPSHOT</version>
     <name>sly</name>
     <description>A framework built with lambda</description>
@@ -50,12 +51,7 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <modules>
+        <module>lang</module>
+    </modules>
 </project>
