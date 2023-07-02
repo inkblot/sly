@@ -43,6 +43,10 @@
             <groupId>com.jnape.palatable</groupId>
             <artifactId>shoki</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.jnape.palatable</groupId>
+            <artifactId>winterbourne</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.jnape.palatable</groupId>
@@ -52,6 +56,10 @@
     </dependencies>
 
     <modules>
+        <module>jdk</module>
+        <module>hamcrest</module>
+        <module>jdk-matchers</module>
+        <module>lambda-matchers</module>
         <module>lang</module>
     </modules>
 </project>
