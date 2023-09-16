@@ -7,11 +7,12 @@
     <parent>
         <groupId>org.movealong</groupId>
         <artifactId>sly</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1</version>
     </parent>
 
+    <name>sly-hamcrest</name>
     <artifactId>sly-hamcrest</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
 
     <dependencies>
         <dependency>
