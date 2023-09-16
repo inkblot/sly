@@ -26,7 +26,7 @@
 
     <artifactId>sly</artifactId>
     <packaging>pom</packaging>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>sly</name>
     <description>A framework built with lambda</description>
     <url>https://github.com/inkblot/sly</url>
