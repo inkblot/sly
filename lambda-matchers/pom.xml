@@ -26,6 +26,7 @@
         <version>0.1.1-SNAPSHOT</version>
     </parent>
 
+    <name>sly-lambda-matchers</name>
     <artifactId>sly-lambda-matchers</artifactId>
     <version>0.1.1-SNAPSHOT</version>
 
