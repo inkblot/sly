@@ -5,6 +5,10 @@ Important changes in each release of `sly` will be noted in this file.
 
 ## [Unreleased]
 
+No pending changes
+
+## [0.1.1]
+
 ### Added
 
 In `sly-lang`, these implementations of `NaturalTransformation` are new:
@@ -57,6 +61,7 @@ In `sly-lambda-matchers`, these matchers are new:
 - Converted the `sly` module into an aggregator
 - Moved existing `org.movealong.sly.lang` package into `sly-lang`
 - Added `sly-hamcrest`, `sly-jdk`, `sly-jdk-matchers`, and `sly-lambda-matchers` submodules
+- Updated parent pom to 0.0.34
 
 ## [0.0.3]
 
