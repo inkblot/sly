@@ -5,7 +5,9 @@ Important changes in each release of `sly` will be noted in this file.
 
 ## [Unreleased]
 
-No pending changes
+### Added
+
+- Added `HyperFn` in `sly-lang1
 
 ## [0.1.1]
 
