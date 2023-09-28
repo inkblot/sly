@@ -7,7 +7,10 @@ Important changes in each release of `sly` will be noted in this file.
 
 ### Added
 
-- Added `HyperFn` in `sly-lang1
+Added `HyperFn` in `sly-lang` and these implementations:
+
+- `RunningEitherT`: EitherT<M, L, R> -> MonadRec<Either<L, R>, M>
+- `RunningMaybe`: MaybeT<M, A> -> MonadRec<Maybe<A>, M>
 
 ## [0.1.1]
 
