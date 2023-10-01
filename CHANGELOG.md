@@ -10,6 +10,7 @@ Important changes in each release of `sly` will be noted in this file.
 Added `HyperFn` in `sly-lang` and these implementations:
 
 - `RunningEitherT`: EitherT<M, L, R> -> MonadRec<Either<L, R>, M>
+- `RunningIterateT`: IterateT<M, A> -> MaybeT<M, Tuple2<A, IterateT<M, A>>>
 - `RunningMaybe`: MaybeT<M, A> -> MonadRec<Maybe<A>, M>
 - `RunningStateT`: StateT<S, M, A> -> MonadRec<Tuple2<A, S>, M>
 
