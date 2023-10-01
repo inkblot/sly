@@ -12,6 +12,10 @@ Added `HyperFn` in `sly-lang` and these implementations:
 - `RunningEitherT`: EitherT<M, L, R> -> MonadRec<Either<L, R>, M>
 - `RunningMaybe`: MaybeT<M, A> -> MonadRec<Maybe<A>, M>
 
+Added matchers in `sly-lambda-matchers`:
+
+- `Tuple2Matcher`: A matcher of `Tuple2`
+
 ## [0.1.1]
 
 ### Added
