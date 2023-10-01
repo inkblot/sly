@@ -96,7 +96,7 @@ public class JustMatcher<A> extends TypeSafeDiagnosingMatcher<Maybe<A>> {
 
     /**
      * Creates a matcher that matches an instance of {@link} when the carrier
-     * is present (i.e. "just), with no other opinion about the carrier.
+     * is present (i.e. "just"), with no other opinion about the carrier.
      *
      * <pre>
      * assertThat(just("foo"), isJust()); // passes
