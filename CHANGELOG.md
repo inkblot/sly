@@ -9,6 +9,7 @@ Important changes in each release of `sly` will be noted in this file.
 
 Added `HyperFn` in `sly-lang` and these implementations:
 
+- `FixV`: NaturalTransformation<F, G> -> HyperFn<F, A, G, A>
 - `JoiningEither`: EitherT<M, L, Either<L, R>> -> EitherT<M, L, R>
 - `JoiningIdentity`: IdentityT<M, Identity<A>> -> IdentityT<M, A>
 - `JoiningMaybe`: MaybeT<M, Maybe<A>> -> MaybeT<M, A>
