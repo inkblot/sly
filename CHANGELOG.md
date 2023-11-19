@@ -5,7 +5,24 @@ Important changes in each release of `sly` will be noted in this file.
 
 ## [Unreleased]
 
-No pending changes
+### Added
+
+Added `HyperFn` in `sly-lang` and these implementations:
+
+- `JoiningEither`: EitherT<M, L, Either<L, R>> -> EitherT<M, L, R>
+- `JoiningIdentity`: IdentityT<M, Identity<A>> -> IdentityT<M, A>
+- `JoiningMaybe`: MaybeT<M, Maybe<A>> -> MaybeT<M, A>
+- `JoiningState`: StateT<S, M, State<S, A>> -> StateT<S, M, A>
+- `RunningEitherT`: EitherT<M, L, R> -> MonadRec<Either<L, R>, M>
+- `RunningIdentityT`: IdentityT<M, A> -> MonadRec<Identity<A>, M>
+- `RunningIterateT`: IterateT<M, A> -> MaybeT<M, Tuple2<A, IterateT<M, A>>>
+- `RunningMaybeT`: MaybeT<M, A> -> MonadRec<Maybe<A>, M>
+- `RunningStateT`: StateT<S, M, A> -> MonadRec<Tuple2<A, S>, M>
+- `RunningStreamT`: StreamT<M, A> -> MaybeT<M, Tuple2<Maybe<A>, StreamT<M, A>>>
+
+Added matchers in `sly-lambda-matchers`:
+
+- `Tuple2Matcher`: A matcher of `Tuple2`
 
 ## [0.1.1]
 
