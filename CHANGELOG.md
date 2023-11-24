@@ -21,6 +21,14 @@ Added `HyperFn` in `sly-lang` and these implementations:
 - `RunningStateT`: StateT<S, M, A> -> MonadRec<Tuple2<A, S>, M>
 - `RunningStreamT`: StreamT<M, A> -> MaybeT<M, Tuple2<Maybe<A>, StreamT<M, A>>>
 
+Added `sly-model` module with these types:
+
+- `WrappedValue`: a simple unifying interface for tiny types
+- `Label`: a wrapped string that represents a label
+- `Labeled`: a `Functor` that associates a `Label` with a wrapped value
+- `Name`: a wrapped string the represents a name
+- `Named`: a `Functor` that associates a `Name` with a wrapped value
+
 Added matchers in `sly-lambda-matchers`:
 
 - `Tuple2Matcher`: A matcher of `Tuple2`
