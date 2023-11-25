@@ -15,6 +15,7 @@
  */
 package org.movealong.sly.model;
 
+import com.jnape.palatable.lambda.adt.product.Product2;
 import com.jnape.palatable.lambda.functions.Fn1;
 import com.jnape.palatable.lambda.functor.Applicative;
 import com.jnape.palatable.lambda.functor.Functor;
@@ -33,10 +34,11 @@ import static lombok.AccessLevel.PRIVATE;
 public class Named<A> implements
     Functor<A, Named<?>>,
     Traversable<A, Named<?>>,
+    Product2<Name, A>,
     WrappedValue<A> {
 
     Name name;
-    A value;
+    A    value;
 
     @Override
     public <B> Named<B> fmap(Fn1<? super A, ? extends B> fn) {
@@ -48,6 +50,16 @@ public class Named<A> implements
     public <B, App extends Applicative<?, App>, TravB extends Traversable<B, Named<?>>, AppTrav extends Applicative<TravB, App>>
     AppTrav traverse(Fn1<? super A, ? extends Applicative<B, App>> fn, Fn1<? super TravB, ? extends AppTrav> pure) {
         return (AppTrav) $(fn, value).fmap(named(name));
+    }
+
+    @Override
+    public Name _1() {
+        return name;
+    }
+
+    @Override
+    public A _2() {
+        return value;
     }
 
     public static <A> Named<A> named(Name name, A value) {
