@@ -29,6 +29,12 @@ Added `sly-model` module with these types:
 - `Name`: a wrapped string the represents a name
 - `Named`: a `Functor` that associates a `Name` with a wrapped value
 
+Add `sly-model-test` module containing:
+
+- `WrappedValueMatcher`: an abstract superclass for `WrappedValue` matchers
+- `LabelMatcher`: A matcher for `Label`
+- `NameMatcher`: A matcher for `Name`
+
 Added matchers in `sly-lambda-matchers`:
 
 - `Tuple2Matcher`: A matcher of `Tuple2`
