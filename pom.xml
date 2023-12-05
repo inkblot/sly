@@ -76,6 +76,8 @@
         <module>hamcrest</module>
         <module>jdk-matchers</module>
         <module>lambda-matchers</module>
+        <module>model</module>
+        <module>model-test</module>
         <module>lang</module>
     </modules>
 </project>

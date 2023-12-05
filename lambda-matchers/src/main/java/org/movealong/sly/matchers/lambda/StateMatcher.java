@@ -179,7 +179,7 @@ public class StateMatcher<S, A> extends TypeSafeDiagnosingMatcher<State<S, A>> {
          * about the final state and carrier value to produce a
          * {@link StateMatcher}.
          *
-         * @param initialState
+         * @param initialState the initial state to use when evaluating
          * @return a matcher of {@link State}
          */
         public StateMatcher<S, A> afterEvaluating(S initialState) {

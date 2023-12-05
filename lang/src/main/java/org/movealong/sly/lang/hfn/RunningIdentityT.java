@@ -28,6 +28,7 @@ public class RunningIdentityT {
      * the carrier.
      *
      * @param <M> the argument {@link MonadRec}
+     * @param <A> the carrier type
      * @return an interpreter that runs {@link IdentityT}
      */
     public static <M extends MonadRec<?, M>, A> HyperFn<IdentityT<M, ?>, A, M, Identity<A>> runningIdentityT() {
