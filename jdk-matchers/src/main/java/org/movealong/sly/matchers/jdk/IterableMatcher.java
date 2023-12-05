@@ -172,8 +172,8 @@ public class IterableMatcher<E> extends TypeSafeDiagnosingMatcher<Iterable<E>> {
      * missing elements in the evaluated {@link Iterable} and they must occur
      * in the same order as the element matchers that they satisfy.
      *
-     * @param matchers the matchers that the iterated elements must satisfy
      * @param <E>      the element type
+     * @param matchers the matchers that the iterated elements must satisfy
      * @return A matcher of {@link Iterable}
      */
     public static <E> IterableMatcher<E> iteratesAllItemsThat(Iterable<? extends Matcher<? super E>> matchers) {
@@ -185,6 +185,7 @@ public class IterableMatcher<E> extends TypeSafeDiagnosingMatcher<Iterable<E>> {
      * iterates no elements.
      *
      * @param <E> the element type
+     * @return A matcher of {@link Iterable}
      */
     public static <E> IterableMatcher<E> isEmptyIterable() {
         return iteratesAllItemsThat(strictQueue());
@@ -194,6 +195,11 @@ public class IterableMatcher<E> extends TypeSafeDiagnosingMatcher<Iterable<E>> {
      * A static constructor for use in derived matchers, where the evaluated
      * type is not {@link Iterable} and a different descriptor for the type
      * might be more appropriate.
+     *
+     * @param <E>            the element type
+     * @param matchers       the matchers that the iterated elements must satisfy
+     * @param typeDescriptor the descriptor of the evaluated type
+     * @return A matcher of {@link Iterable}
      */
     public static <E> IterableMatcher<E>
     derivativeOfIterableMatcher(Iterable<? extends Matcher<? super E>> matchers, String typeDescriptor) {

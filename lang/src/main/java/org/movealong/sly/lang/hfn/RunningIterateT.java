@@ -42,6 +42,7 @@ public final class RunningIterateT<M extends MonadRec<?, M>, A> implements
      * bearing a tuple of the head and tail of the iteration.
      *
      * @param <M> the argument {@link MonadRec}
+     * @param <A> the carrier type
      * @return an interpreter that runs {@link IterateT}
      */
     @SuppressWarnings("unchecked")

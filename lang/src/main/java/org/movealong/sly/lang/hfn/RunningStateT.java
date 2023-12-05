@@ -38,6 +38,7 @@ public final class RunningStateT<M extends MonadRec<?, M>, S, A> implements
      *
      * @param <M> the argument {@link MonadRec}
      * @param <S> the state type
+     * @param <A> the carrier type
      * @param s   the initial state
      * @return a <code>HyperFn</code> that runs {@link StateT}
      */

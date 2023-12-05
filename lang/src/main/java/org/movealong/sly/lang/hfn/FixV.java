@@ -36,6 +36,12 @@ public final class FixV<A, F extends Functor<?, F>, G extends Functor<?, G>> imp
      * method's <code>A</code> type parameter at the type level. This enables
      * composition of the <code>NaturalTransformation</code> with
      * <code>HyperFn</code>s.
+     *
+     * @param <A>     the carrier type
+     * @param <F>     the input {@link Functor} type
+     * @param <G>     the output {@link Functor} type
+     * @param transFG the {@link NaturalTransformation} to convert
+     * @return the converted {@link NaturalTransformation}
      */
     public static <A, F extends Functor<?, F>, G extends Functor<?, G>>
     HyperFn<F, A, G, A> fixV(NaturalTransformation<F, G> transFG) {
