@@ -19,7 +19,7 @@ style, and in discrete units that can be included as necessary.
 ## Feature Areas
 
 `sly` is organized into modules that implement discrete feature areas. Some
-feature areas are thebedrock type-safe functional concepts that just need a
+feature areas are the bedrock type-safe functional concepts that just need a
 generic implementation and are not already satisfied by the
 [palatable](https://github.com/palatable) libraries. The rest are the kinds
 of generic feature functionality that typically make up a framework library.
