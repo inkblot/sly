@@ -18,7 +18,6 @@ package org.movealong.sly.lang.hfn;
 import com.jnape.palatable.lambda.adt.Maybe;
 import com.jnape.palatable.lambda.functor.builtin.Identity;
 import com.jnape.palatable.lambda.io.IO;
-import com.jnape.palatable.lambda.monad.transformer.builtin.IdentityT;
 import org.junit.jupiter.api.Test;
 
 import static com.jnape.palatable.lambda.adt.Maybe.just;
@@ -34,21 +33,21 @@ import static testsupport.matchers.IOMatcher.yieldsValue;
 class RunningIdentityTTest {
     @Test
     void runningWithIO() {
-        HyperFn<IdentityT<IO<?>, ?>, String, IO<?>, Identity<String>> sut = runningIdentityT();
+        RunningIdentityT<IO<?>, String> sut = runningIdentityT();
         assertThat(sut.apply(identityT(io(new Identity<>("junit")))),
                    yieldsValue(equalTo(new Identity<>("junit"))));
     }
 
     @Test
     void runningWithPresentMaybe() {
-        HyperFn<IdentityT<Maybe<?>, ?>, String, Maybe<?>, Identity<String>> sut = runningIdentityT();
+        RunningIdentityT<Maybe<?>, String> sut = runningIdentityT();
         assertThat(sut.apply(identityT(just(new Identity<>("junit")))),
                    isJustOf(new Identity<>("junit")));
     }
 
     @Test
     void runningWithAbsentMaybe() {
-        HyperFn<IdentityT<Maybe<?>, ?>, String, Maybe<?>, Identity<String>> sut = runningIdentityT();
+        RunningIdentityT<Maybe<?>, String> sut = runningIdentityT();
         assertThat(sut.apply(identityT(nothing())),
                    equalTo(Maybe.<Identity<String>>nothing()));
     }

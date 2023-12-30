@@ -15,23 +15,33 @@
  */
 package org.movealong.sly.lang.hfn;
 
+import com.jnape.palatable.lambda.functor.Functor;
 import com.jnape.palatable.lambda.functor.builtin.Identity;
 import com.jnape.palatable.lambda.monad.MonadRec;
 import com.jnape.palatable.lambda.monad.transformer.builtin.IdentityT;
 
-import static org.movealong.sly.lang.hfn.HyperFn.hyperFn;
+public class RunningIdentityT<M extends MonadRec<?, M>, A> implements
+    HyperFn<IdentityT<M, ?>, A, M, Identity<A>> {
 
-public class RunningIdentityT {
+    public static final RunningIdentityT<?, ?> INSTANCE = new RunningIdentityT<>();
+
+    @Override
+    public <GB extends Functor<Identity<A>, M>> GB apply(Functor<A, IdentityT<M, ?>> fa) {
+        return fa.<IdentityT<M, A>>coerce().runIdentityT().coerce();
+    }
+
     /**
-     * An <code>Interpreter</code> that runs an {@link IdentityT}, producing
-     * an instance of its argument {@link MonadRec} with an {@link Identity} as
+     * A <code>HyperFn</code> that runs an {@link IdentityT}, producing an
+     * instance of its argument {@link MonadRec} with an {@link Identity} as
      * the carrier.
      *
      * @param <M> the argument {@link MonadRec}
      * @param <A> the carrier type
-     * @return an interpreter that runs {@link IdentityT}
+     * @return a <code>HyperFn</code> that runs {@link IdentityT}
+     * @see IntoIdentityT
      */
-    public static <M extends MonadRec<?, M>, A> HyperFn<IdentityT<M, ?>, A, M, Identity<A>> runningIdentityT() {
-        return hyperFn(fa -> fa.<IdentityT<M, A>>coerce().runIdentityT());
+    @SuppressWarnings("unchecked")
+    public static <M extends MonadRec<?, M>, A> RunningIdentityT<M, A> runningIdentityT() {
+        return (RunningIdentityT<M, A>) INSTANCE;
     }
 }
