@@ -32,9 +32,9 @@ public final class RunningStateT<M extends MonadRec<?, M>, S, A> implements
     }
 
     /**
-     * An <code>HyperFn</code> that runs a {@link StateT}, producing an
-     * instance of its argument {@link MonadRec} bearing a tuple of final state
-     * &lt;S&gt; and the original carrier.
+     * A {@link HyperFn} that runs a {@link StateT}, producing an instance of
+     * its argument {@link MonadRec} bearing a {@link Tuple2} of final state
+     * and the original carrier.
      *
      * @param <M> the argument {@link MonadRec}
      * @param <S> the state type

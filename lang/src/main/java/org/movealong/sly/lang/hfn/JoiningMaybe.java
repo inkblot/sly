@@ -35,12 +35,12 @@ public class JoiningMaybe<M extends MonadRec<?, M>, A> implements
 
     /**
      * A {@link HyperFn} that takes a {@link MaybeT} with a {@link Maybe} in
-     * the carrier and joins the effects of the <code>Maybe</code> and the
-     * <code>MaybeT</code>.
+     * the carrier and joins the effects of the {@link Maybe} and
+     * {@link MaybeT}.
      *
      * @param <M> the argument {@link MonadRec}
      * @param <A> the carrier type
-     * @return an interpreter that transforms {@link MaybeT}
+     * @return a <code>HyperFn</code> that transforms {@link MaybeT}
      */
     @SuppressWarnings("unchecked")
     public static <M extends MonadRec<?, M>, A> JoiningMaybe<M, A> joiningMaybe() {

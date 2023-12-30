@@ -38,6 +38,16 @@ public final class RunningStreamT<M extends MonadRec<?, M>, A> implements
         return maybeT(fa.<StreamT<M, A>>coerce().runStreamT()).coerce();
     }
 
+    /**
+     * A {@link HyperFn} that runs a {@link StreamT}, producing an instance of
+     * {@link MaybeT} with the same argument {@link MonadRec} bearing a tuple
+     * of the head and tail of the stream.
+     *
+     * @param <M> the argument {@link MonadRec}
+     * @param <A> the carrier type
+     * @return a <code>HyperFn</code> that runs {@link StreamT}
+     * @see IntoStreamT
+     */
     @SuppressWarnings("unchecked")
     public static <M extends MonadRec<?, M>, A>
     RunningStreamT<M, A> runningStreamT() {

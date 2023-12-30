@@ -37,13 +37,14 @@ public final class RunningIterateT<M extends MonadRec<?, M>, A> implements
     }
 
     /**
-     * A <code>HyperFn</code> that runs an {@link IterateT}, producing an
-     * instance of {@link MaybeT} with the same argument {@link MonadRec}
-     * bearing a tuple of the head and tail of the iteration.
+     * A {@link HyperFn} that runs an {@link IterateT}, producing an instance
+     * of {@link MaybeT} with the same argument {@link MonadRec} bearing a
+     * tuple of the head and tail of the iteration.
      *
      * @param <M> the argument {@link MonadRec}
      * @param <A> the carrier type
-     * @return an interpreter that runs {@link IterateT}
+     * @return a <code>HyperFn</code> that runs {@link IterateT}
+     * @see IntoIterateT
      */
     @SuppressWarnings("unchecked")
     public static <M extends MonadRec<?, M>, A> RunningIterateT<M, A> runningIterateT() {

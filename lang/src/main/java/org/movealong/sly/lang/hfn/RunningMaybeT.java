@@ -34,6 +34,15 @@ public final class RunningMaybeT<M extends MonadRec<?, M>, A> implements
         return fa.<MaybeT<M, A>>coerce().runMaybeT().coerce();
     }
 
+    /**
+     * A {@link HyperFn} that runs a {@link MaybeT}, producing an instance of
+     * its argument {@link MonadRec} with a {@link Maybe} as the carrier.
+     *
+     * @param <M> the argument {@link MonadRec}
+     * @param <A> the carrier type
+     * @return a <code>HyperFn</code> that runs {@link MaybeT}
+     * @see IntoMaybeT
+     */
     @SuppressWarnings("unchecked")
     public static <M extends MonadRec<?, M>, A> RunningMaybeT<M, A> runningMaybeT() {
         return (RunningMaybeT<M, A>) INSTANCE;

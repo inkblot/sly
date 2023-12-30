@@ -36,13 +36,13 @@ public final class JoiningIdentity<M extends MonadRec<?, M>, A> implements
     }
 
     /**
-     * A <code>HyperFn</code> that takes an {@link IdentityT} with an
-     * {@link Identity} in the carrier and joins the <code>Identity</code>
-     * effects.
+     * A {@link HyperFn} that takes an {@link IdentityT} with an
+     * {@link Identity} in the carrier and joins the effects of the
+     * {@link IdentityT} and {@link IdentityT}.
      *
      * @param <M> the argument {@link MonadRec}
      * @param <A> the carrier type
-     * @return an interpreter that transforms {@link EitherT}
+     * @return a <code>HyperFn</code> that transforms {@link EitherT}
      */
     @SuppressWarnings("unchecked")
     public static <M extends MonadRec<?, M>, A> JoiningIdentity<M, A> joiningIdentity() {

@@ -37,14 +37,14 @@ public final class JoiningEither<M extends MonadRec<?, M>, L, R> implements
     }
 
     /**
-     * A <code>HyperFn</code> that takes an {@link EitherT} with an
-     * {@link Either} in the carrier and, provided they share a common left
-     * type, joins the <code>Either</code>s.
+     * A {@link HyperFn} that takes an {@link EitherT} with an {@link Either}
+     * in the carrier and, provided they share a common left type, joins the
+     * effects of the {@link Either} and {@link EitherT}.
      *
      * @param <M> the argument {@link MonadRec}
      * @param <L> the left type
      * @param <R> the right type
-     * @return an interpreter that transforms {@link EitherT}
+     * @return a <code>HyperFn</code> that transforms {@link EitherT}
      */
     @SuppressWarnings("unchecked")
     public static <M extends MonadRec<?, M>, L, R> JoiningEither<M, L, R> joiningEither() {

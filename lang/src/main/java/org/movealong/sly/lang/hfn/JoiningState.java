@@ -41,14 +41,14 @@ public final class JoiningState<S, M extends MonadRec<?, M>, A> implements
     }
 
     /**
-     * A <code>HyperFn</code> that takes an {@link StateT} with an
-     * {@link State} in the carrier and, provided they share a common state
-     * type, joins the <code>State</code> effectss.
+     * A {@link HyperFn} that takes an {@link StateT} with a {@link State} in
+     * the carrier and, provided they share a common state type, joins the
+     * effects of {@link State} and {@link StateT}.
      *
      * @param <M> the argument {@link MonadRec}
      * @param <S> the state type
      * @param <A> the carrier type
-     * @return an interpreter that transforms {@link EitherT}
+     * @return a <code>HyperFn</code> that transforms {@link EitherT}
      */
     @SuppressWarnings("unchecked")
     public static <S, M extends MonadRec<?, M>, A> JoiningState<S, M, A> joiningState() {

@@ -31,11 +31,11 @@ public final class FixV<A, F extends Functor<?, F>, G extends Functor<?, G>> imp
     }
 
     /**
-     * Convert a <code>NaturalTransformation</code> to a <code>HyperFn</code>
-     * by fixing the value of the {@link NaturalTransformation#apply(Functor)}
-     * method's <code>A</code> type parameter at the type level. This enables
-     * composition of the <code>NaturalTransformation</code> with
-     * <code>HyperFn</code>s.
+     * Convert a {@link NaturalTransformation} to a {@link HyperFn} by fixing
+     * the value of the {@link NaturalTransformation#apply(Functor)} method's
+     * <code>A</code> type parameter at the type level. This enables
+     * composition of the {@link NaturalTransformation} with
+     * {@link HyperFn}.
      *
      * @param <A>     the carrier type
      * @param <F>     the input {@link Functor} type

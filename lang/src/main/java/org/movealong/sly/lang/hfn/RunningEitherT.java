@@ -41,7 +41,8 @@ public final class RunningEitherT<M extends MonadRec<?, M>, L, R> implements
      * @param <M> the argument {@link MonadRec}
      * @param <L> ths left type of the {@link EitherT}
      * @param <R> the carrier type
-     * @return an interpreter that runs {@link EitherT}
+     * @return a <code>HyperFn</code> that runs {@link EitherT}
+     * @see IntoEitherT
      */
     @SuppressWarnings("unchecked")
     public static <M extends MonadRec<?, M>, L, R> RunningEitherT<M, L, R> runningEitherT() {
