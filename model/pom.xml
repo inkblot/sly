@@ -26,30 +26,13 @@
         <version>0.2.0</version>
     </parent>
 
-    <name>sly-jdk-matchers</name>
-    <artifactId>sly-jdk-matchers</artifactId>
+    <artifactId>sly-model</artifactId>
     <version>0.2.0</version>
 
     <dependencies>
         <dependency>
-            <groupId>org.movealong</groupId>
-            <artifactId>sly-hamcrest</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <scope>compile</scope>
+            <groupId>com.jnape.palatable</groupId>
+            <artifactId>traitor</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>flatten-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>
