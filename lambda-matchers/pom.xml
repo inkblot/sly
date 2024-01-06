@@ -23,12 +23,12 @@
     <parent>
         <groupId>org.movealong</groupId>
         <artifactId>sly</artifactId>
-        <version>0.2.0-SNAPSHOT</version>
+        <version>0.2.1-SNAPSHOT</version>
     </parent>
 
     <name>sly-lambda-matchers</name>
     <artifactId>sly-lambda-matchers</artifactId>
-    <version>0.2.0-SNAPSHOT</version>
+    <version>0.2.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
