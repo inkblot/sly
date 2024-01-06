@@ -26,6 +26,7 @@
         <version>0.2.1-SNAPSHOT</version>
     </parent>
 
+    <name>sly-model</name>
     <artifactId>sly-model</artifactId>
     <version>0.2.1-SNAPSHOT</version>
 
