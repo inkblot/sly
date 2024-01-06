@@ -5,6 +5,10 @@ Important changes in each release of `sly` will be noted in this file.
 
 ## [Unreleased]
 
+## [0.2.1]
+
+Fix a pom issue. Deployment requires a `name` element in the maven modules.
+
 ## [0.2.0]
 
 ### Added
