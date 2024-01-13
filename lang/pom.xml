@@ -41,6 +41,10 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.movealong</groupId>
             <artifactId>sly-lambda-matchers</artifactId>
             <version>${project.version}</version>
