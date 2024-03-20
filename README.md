@@ -7,9 +7,7 @@ avoid side effects, and focus on writing expressions instead of statements.
 This might seem like a lot to sacrifice in a language with a long history of
 procedural object-oriented programming, but all of the necessary language
 features to write pure functional code exist in Java and the experience is
-actually quite enjoyable. The main stumbling block to adopting this style is
-the lack of framework and feature libraries that respect these same
-conventions.
+actually quite enjoyable.
 
 `sly` is a functional framework built using
 [lambda](https://github.com/palatable/lambda). The core principle of its
