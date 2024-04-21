@@ -27,14 +27,23 @@
     </parent>
 
     <name>sly-app</name>
+    <artifactId>sly-app</artifactId>
+    <version>0.2.2-SNAPSHOT</version>
+
     <dependencies>
         <dependency>
             <groupId>org.movealong</groupId>
             <artifactId>sly-lang</artifactId>
-            <version>0.2.2-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
-    <artifactId>sly-app</artifactId>
-    <version>0.2.2-SNAPSHOT</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
