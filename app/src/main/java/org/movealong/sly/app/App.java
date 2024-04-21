@@ -16,13 +16,16 @@
 package org.movealong.sly.app;
 
 import com.jnape.palatable.lambda.adt.Maybe;
+import com.jnape.palatable.lambda.adt.Unit;
 import com.jnape.palatable.lambda.adt.hmap.HMap;
 import com.jnape.palatable.lambda.functions.specialized.Kleisli;
 import com.jnape.palatable.lambda.functor.Functor;
 import com.jnape.palatable.lambda.functor.builtin.Identity;
 import com.jnape.palatable.lambda.io.IO;
+import com.jnape.palatable.lambda.monad.Monad;
 import com.jnape.palatable.lambda.optics.Lens;
 import com.jnape.palatable.shoki.impl.StrictStack;
+import com.jnape.palatable.winterbourne.NaturalTransformation;
 import lombok.RequiredArgsConstructor;
 
 import static com.jnape.palatable.lambda.adt.Maybe.just;
@@ -36,6 +39,7 @@ import static com.jnape.palatable.lambda.optics.functions.Set.set;
 import static com.jnape.palatable.lambda.optics.functions.View.view;
 import static com.jnape.palatable.lambda.optics.lenses.HMapLens.valueAt;
 import static com.jnape.palatable.shoki.impl.StrictStack.strictStack;
+import static java.lang.Runtime.getRuntime;
 import static lombok.AccessLevel.PRIVATE;
 import static org.movealong.sly.app.Service.serviceRef;
 import static org.movealong.sly.lang.nt.PerformingIO.performingIO;
@@ -75,64 +79,82 @@ public final class App {
     }
 
     /**
-     * Resolves an {@link Application}. Composing the result of a call to
+     * Resolves a service. Composing a {@link Kleisli} returned from
      * <code>resolve</code> onto a {@link Kleisli} composed of one or more
      * <code>bind</code> calls will produce an <i>application function</i>
-     * suitable for use with <code>run</code>.
+     * suitable for use with <code>run</code> or <code>start</code>.
      *
-     * @param <R>     carrier type of the application return
-     * @param <F>     {@link Functor} type of the application return
-     * @param <FR>    the application return type
-     * @param <A>     the {@link Application} type
+     * @param <S>     the service object type
      * @param service the {@link Service}
      * @return An <i>application function</i>
      */
-    public static <R, F extends Functor<?, F>, FR extends Functor<R, F>, A extends Application<R, F, FR>>
-    Kleisli<App, A, IO<?>, IO<A>> resolve(Service<A> service) {
+    public static <S>
+    Kleisli<App, S, IO<?>, IO<S>> resolve(Service<S> service) {
         return app -> service.resolveService(app.new AppServices(strictStack()));
     }
 
     /**
-     * Resolves an {@link Application} by its {@link ServiceHandle}. The handle
-     * must have been previously bound using <code>bind</code> to a
-     * {@link Service} that has a carrier of type <code>A</code>. Composing the
-     * result of a call to <code>resolve</code> onto a {@link Kleisli} composed
-     * of one or more <code>bind</code> calls will produce an <i>application
+     * Resolves a service by its {@link ServiceHandle}. The handle must have
+     * been previously bound using <code>bind</code> to a {@link Service} that
+     * has a carrier of type <code>S</code>. Composing a {@link Kleisli}
+     * returned from <code>resolve</code> onto a {@link Kleisli} composed of
+     * one or more <code>bind</code> calls will produce an <i>application
      * function</i> suitable for use with <code>run</code>.
      *
-     * @param <R>    carrier type of the application return
-     * @param <F>    {@link Functor} type of the application return
-     * @param <FR>   the application return type
-     * @param <A>    the {@link Application} type
+     * @param <S>    the {@link Runner} type
      * @param handle handle for the application service
      * @return An <i>application function</i>
      */
-    public static <R, F extends Functor<?, F>, FR extends Functor<R, F>, A extends Application<R, F, FR>>
-    Kleisli<App, A, IO<?>, IO<A>> resolve(ServiceHandle<A> handle) {
+    public static <S> Kleisli<App, S, IO<?>, IO<S>>
+    resolve(ServiceHandle<S> handle) {
         return resolve(serviceRef(handle));
     }
 
     /**
-     * Runs an application in the form of an <i>application function</i>,
-     * producing a {@link Functor} that bears the ultimate return type.
-     * <code>run</code> will perform the {@link IO} that results from applying
-     * the function exactly once, throw an exception if that {@link IO} is in
-     * its error mode, and otherwise return the {@link IO}'s result.
+     * Runs an application in the form of an <i>application function</i> that
+     * yields n {@link Runner} that produces a {@link Functor} that bears the
+     * ultimate return type. <code>run</code> will perform the {@link IO} that
+     * results from applying the function exactly once, throw an exception if
+     * that {@link IO} is in its error mode, and otherwise return the
+     * {@link IO}'s result.
      *
      * @param <R>         carrier type of the application return
      * @param <F>         {@link Functor} type of the application return
      * @param <FR>        the application return type
-     * @param <A>         the {@link Application} type
-     * @param application the {@link Kleisli} function representing the application
+     * @param <A>         the {@link Runner} type
+     * @param application the {@link Kleisli} function representing the
+     *                    application
      * @return the result of running the application
      */
-    public static <R, F extends Functor<?, F>, FR extends Functor<R, F>, A extends Application<R, F, FR>>
+    public static <R, F extends Functor<?, F>, FR extends Functor<R, F>, A extends Runner<R, F, FR>>
     FR run(Kleisli<App, A, IO<?>, IO<A>> application) {
         return performingIO()
             .andThen(throwingExceptions())
             .<A, Identity<A>>apply(application.apply(INSTANCE))
             .runIdentity()
             .run();
+    }
+
+    /**
+     * Starts an application in the form of an <i>application function</i> that
+     * yields a {@link Starter}, which in turn handles starting and stopping
+     * the long-running components of the application.
+     *
+     * @param <S>         the {@link Starter} type
+     * @param application the application function
+     */
+    public static <S extends Starter<IO<?>>>
+    void start(Kleisli<App, S, IO<?>, IO<S>> application) {
+        NaturalTransformation<IO<?>, Identity<?>> transformation =
+            performingIO()
+                .andThen(throwingExceptions());
+        transformation
+            .apply(application
+                       .andThen(Starter::<Monad<Stopper<IO<?>>, IO<?>>>start)
+                       .andThen(stop -> io(() -> getRuntime()
+                           .addShutdownHook(new Thread(() -> transformation
+                               .apply(stop.<IO<Unit>>stop())))))
+                       .apply(INSTANCE));
     }
 
     @RequiredArgsConstructor(access = PRIVATE)

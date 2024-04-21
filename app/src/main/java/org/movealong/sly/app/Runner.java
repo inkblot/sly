@@ -25,7 +25,7 @@ import com.jnape.palatable.lambda.functor.Functor;
  * @param <FA> the application return type
  */
 @FunctionalInterface
-public interface Application<A, F extends Functor<?, F>, FA extends Functor<A, F>> {
+public interface Runner<A, F extends Functor<?, F>, FA extends Functor<A, F>> {
 
     /**
      * Represents the main body of an application.
@@ -36,16 +36,16 @@ public interface Application<A, F extends Functor<?, F>, FA extends Functor<A, F
 
     /**
      * A convenience method for correctly typing a lambda as an
-     * {@link Application}.
+     * {@link Runner}.
      *
      * @param <A>         the carrier type of the application return
      * @param <F>         the {@link Functor} type of the application return
      * @param <FA>        the application return type
-     * @param application the return value
+     * @param runner the return value
      * @return <code>application</code> is returned as-is
      */
     static <A, F extends Functor<?, F>, FA extends Functor<A, F>>
-    Application<A, F, FA> application(Application<A, F, FA> application) {
-        return application;
+    Runner<A, F, FA> runner(Runner<A, F, FA> runner) {
+        return runner;
     }
 }
