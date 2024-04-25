@@ -14,15 +14,16 @@ in response to input from the environment until they are instructed to stop.
 
 ## Parts of the system
 
-In **sly-app**, these separate pieces are *services*. A service uses *handles*
-to reference other services as *dependencies*. Services are *bound* to handles
-in order to make them available as dependencies. An application is either a
-`Runner` that implements a short-lived application, or a `Starter` that
-implements a long-lived application. An *application function* is the sequence
-of bindings followed by a *resolution* that results in one of these types. The
-application function that produces a `Runner` is then either *run*, or one that
-produces a `Starter` is *started*, in order to commence the execution of the
-application.
+In **sly-app**, the separate pieces that are assembled into an application are
+*services*. A service uses *handles* to reference other services as
+*dependencies*. Services are *bound* to handles in order to make them available
+as dependencies. An application is either a `Runner` that implements a
+short-lived application, or a `Starter` that implements a long-lived
+application which is *resolved*. An *application function* is the sequence of
+bindings followed by a resolution that results in one of these two types. An
+application function that produces a `Runner` is then *run*, whereas one that
+produces a `Starter` is *started*, in both cases this causes the application to
+begin executing.
 
 ### Services
 
