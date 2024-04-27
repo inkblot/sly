@@ -5,6 +5,25 @@ Important changes in each release of `sly` will be noted in this file.
 
 ## [Unreleased]
 
+## [0.3.0]
+
+### Updated
+
+Updated `movealong-oss` to version `0.0.36`
+
+### Added
+
+Added the [`sly-app`](app/README.md) module with a functional framework for
+building an application. The initial module includes these public types:
+
+- `App`
+- `Service`
+- `ServiceHandle`
+- `ServiceException`
+- `Runner`
+- `Starter`
+- `Stopper`
+
 Added these `HyperFn` implementations in `sly-lang`
 
 - `Fmap`
