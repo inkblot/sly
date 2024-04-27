@@ -16,11 +16,19 @@ style, and in discrete units that can be included as necessary.
 
 ## Feature Areas
 
-`sly` is organized into modules that implement discrete feature areas. Some
-feature areas are the bedrock type-safe functional concepts that just need a
-generic implementation and are not already satisfied by the
-[palatable](https://github.com/palatable) libraries. The rest are the kinds
-of generic feature functionality that typically make up a framework library.
+`sly` is organized into modules that implement discrete feature areas:
+
+* [`sly-app`](app/README.md): An application wiring framework
+* `sly-jdk`: Utilities for working with JDK types
+* `sly-lang`: Functions and `HyperFn`s for use in building algorithms
+* `sly-model`: Basic value types for modelling common application concerns
+
+Additionally, `sly` includes these modules to aid in testing:
+
+* `sly-hamcrest`: Utilities for working with hamcrest
+* `sly-jdk-matchers`: Matchers for JDK types
+* `sly-lambda-matchers`: Matchers for lambda and other palatable types
+* `sly-model-test`: Matchers and fixtures for value types in `sly-model`
 
 ## Contributing
 
