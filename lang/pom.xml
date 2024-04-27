@@ -23,12 +23,12 @@
     <parent>
         <groupId>org.movealong</groupId>
         <artifactId>sly</artifactId>
-        <version>0.2.1</version>
+        <version>0.3.0</version>
     </parent>
 
     <name>sly-lang</name>
     <artifactId>sly-lang</artifactId>
-    <version>0.2.1</version>
+    <version>0.3.0</version>
 
     <dependencies>
         <dependency>
@@ -39,6 +39,10 @@
             <groupId>org.movealong</groupId>
             <artifactId>sly-jdk</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
         </dependency>
         <dependency>
             <groupId>org.movealong</groupId>

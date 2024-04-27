@@ -7,9 +7,7 @@ avoid side effects, and focus on writing expressions instead of statements.
 This might seem like a lot to sacrifice in a language with a long history of
 procedural object-oriented programming, but all of the necessary language
 features to write pure functional code exist in Java and the experience is
-actually quite enjoyable. The main stumbling block to adopting this style is
-the lack of framework and feature libraries that respect these same
-conventions.
+actually quite enjoyable.
 
 `sly` is a functional framework built using
 [lambda](https://github.com/palatable/lambda). The core principle of its
@@ -18,11 +16,19 @@ style, and in discrete units that can be included as necessary.
 
 ## Feature Areas
 
-`sly` is organized into modules that implement discrete feature areas. Some
-feature areas are the bedrock type-safe functional concepts that just need a
-generic implementation and are not already satisfied by the
-[palatable](https://github.com/palatable) libraries. The rest are the kinds
-of generic feature functionality that typically make up a framework library.
+`sly` is organized into modules that implement discrete feature areas:
+
+* [`sly-app`](app/README.md): An application wiring framework
+* `sly-jdk`: Utilities for working with JDK types
+* `sly-lang`: Functions and `HyperFn`s for use in building algorithms
+* `sly-model`: Basic value types for modelling common application concerns
+
+Additionally, `sly` includes these modules to aid in testing:
+
+* `sly-hamcrest`: Utilities for working with hamcrest
+* `sly-jdk-matchers`: Matchers for JDK types
+* `sly-lambda-matchers`: Matchers for lambda and other palatable types
+* `sly-model-test`: Matchers and fixtures for value types in `sly-model`
 
 ## Contributing
 

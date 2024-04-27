@@ -23,12 +23,12 @@
     <parent>
         <groupId>org.movealong</groupId>
         <artifactId>sly</artifactId>
-        <version>0.2.1</version>
+        <version>0.3.0</version>
     </parent>
 
     <name>sly-jdk-matchers</name>
     <artifactId>sly-jdk-matchers</artifactId>
-    <version>0.2.1</version>
+    <version>0.3.0</version>
 
     <dependencies>
         <dependency>

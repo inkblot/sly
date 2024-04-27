@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2023 Nate Riffe
+  ~ Copyright (c) 2024 Nate Riffe
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -26,26 +26,15 @@
         <version>0.3.0</version>
     </parent>
 
-    <name>sly-model-test</name>
-    <artifactId>sly-model-test</artifactId>
+    <name>sly-app</name>
+    <artifactId>sly-app</artifactId>
     <version>0.3.0</version>
 
     <dependencies>
         <dependency>
             <groupId>org.movealong</groupId>
-            <artifactId>sly-model</artifactId>
+            <artifactId>sly-lang</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.movealong</groupId>
-            <artifactId>sly-hamcrest</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

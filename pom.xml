@@ -21,11 +21,11 @@
     <parent>
         <groupId>org.movealong</groupId>
         <artifactId>movealong-oss</artifactId>
-        <version>0.0.35</version>
+        <version>0.0.36</version>
     </parent>
 
     <artifactId>sly</artifactId>
-    <version>0.2.1</version>
+    <version>0.3.0</version>
     <packaging>pom</packaging>
 
     <developers>
@@ -79,5 +79,6 @@
         <module>model</module>
         <module>model-test</module>
         <module>lang</module>
+        <module>app</module>
     </modules>
 </project>
