@@ -19,7 +19,8 @@ import com.jnape.palatable.lambda.adt.hmap.TypeSafeKey;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import static java.lang.Thread.currentThread;
+import java.util.Objects;
+
 import static lombok.AccessLevel.PRIVATE;
 
 /**
@@ -33,9 +34,9 @@ import static lombok.AccessLevel.PRIVATE;
 @ToString
 @RequiredArgsConstructor(access = PRIVATE)
 public final class ServiceHandle<S> implements TypeSafeKey.Simple<Service<S>> {
-    private final StackTraceElement initializedAt;
+    private final String initializedAt;
 
     public static <S> ServiceHandle<S> create() {
-        return new ServiceHandle<>(currentThread().getStackTrace()[2]);
+        return new ServiceHandle<>(StackWalker.getInstance().walk(s -> s.skip(1).findFirst().map(Objects::toString).orElse("unknown")));
     }
 }
