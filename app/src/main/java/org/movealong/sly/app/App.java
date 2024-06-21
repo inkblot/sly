@@ -45,12 +45,6 @@ import static org.movealong.sly.app.Service.serviceRef;
 import static org.movealong.sly.lang.nt.PerformingIO.performingIO;
 import static org.movealong.sly.lang.nt.ThrowingExceptions.throwingExceptions;
 
-/**
- * A
- *
- * @see Service
- * @see ServiceHandle
- */
 @RequiredArgsConstructor(access = PRIVATE)
 public final class App {
     private static final App  INSTANCE = new App(emptyHMap());
