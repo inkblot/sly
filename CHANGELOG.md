@@ -5,6 +5,11 @@ Important changes in each release of `sly` will be noted in this file.
 
 ## [Unreleased]
 
+### Added
+
+- Added `ConcurrentlyPerformingIO` to `sly-lang`
+- Added `Atom` to `sly-jdk`
+
 ## [0.3.0]
 
 ### Updated
