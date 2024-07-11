@@ -17,12 +17,14 @@ package org.movealong.sly.lang.nt;
 
 import com.jnape.palatable.lambda.adt.Maybe;
 import com.jnape.palatable.lambda.adt.Try;
+import com.jnape.palatable.lambda.functions.Fn1;
 import com.jnape.palatable.lambda.functor.Functor;
 import com.jnape.palatable.lambda.io.IO;
 import com.jnape.palatable.winterbourne.NaturalTransformation;
 import lombok.AllArgsConstructor;
 
 import java.time.Duration;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 
 import static com.jnape.palatable.lambda.adt.Maybe.just;
@@ -30,16 +32,19 @@ import static com.jnape.palatable.lambda.adt.Maybe.nothing;
 import static com.jnape.palatable.lambda.adt.Try.success;
 import static com.jnape.palatable.lambda.adt.Try.trying;
 import static com.jnape.palatable.lambda.functions.Fn0.fn0;
+import static com.jnape.palatable.lambda.functions.builtin.fn1.Id.id;
+import static com.jnape.palatable.lambda.functions.builtin.fn4.IfThenElse.ifThenElse;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static lombok.AccessLevel.PRIVATE;
 
 /**
- * A {@link NaturalTransformation} that concurrently runs an {@link IO} safely,
- * capturing the result of performing the operation as a {@link Try}. An
- * {@link IO} that yields a result will produce a {@link Try} in the success
- * state, and an {@link IO} that throws an exception will result in a
- * {@link Try} in the failure state. The {@link IO} will be run asynchronously
- * and awaited in order to achieve concurrency.
+ * A {@link NaturalTransformation} that runs an {@link IO} safely and
+ * concurrently, capturing the result of performing the operation as a
+ * {@link Try}. Applying this transformation to an {@link IO} that yields a
+ * result will produce a {@link Try} in the success state, and applying it to
+ * an {@link IO} that throws an exception will result in a {@link Try} in the
+ * failure state. The transformation will run the {@link IO} asynchronously and
+ * await its completion before returning with an optional timeout.
  */
 @AllArgsConstructor(access = PRIVATE)
 public final class ConcurrentlyPerformingIO implements NaturalTransformation<IO<?>, Try<?>> {
@@ -55,7 +60,14 @@ public final class ConcurrentlyPerformingIO implements NaturalTransformation<IO<
             .flatMap(future -> trying(() -> timeout.match(
                 fn0(future::get),
                 to -> future.get(to.toMillis(), MILLISECONDS))))
+            .catchError(unwrap(ExecutionException.class).fmap(Try::failure))
             .coerce();
+    }
+
+    private Fn1<Throwable, Throwable> unwrap(Class<? extends Throwable> exType) {
+        return ifThenElse(exType::isInstance,
+                          Throwable::getCause,
+                          id());
     }
 
     /**
@@ -86,8 +98,10 @@ public final class ConcurrentlyPerformingIO implements NaturalTransformation<IO<
     /**
      * Constructs a {@link ConcurrentlyPerformingIO} that performs an {@link IO}
      * concurrently, capturing the result of the operation as a {@link Try}.
-     * The {@link IO} will run in the forkjoin pool, and will time out after
-     * the supplied {@link Duration}.
+     * The {@link IO} will run in the forkjoin pool, and the invoking thread
+     * will time out after the supplied {@link Duration}. In the event that a
+     * timeout occurs, the {@link IO} will continue to run asynchronously to
+     * completion.
      *
      * @param timeout the timeout
      * @return a {@link ConcurrentlyPerformingIO}
@@ -97,10 +111,12 @@ public final class ConcurrentlyPerformingIO implements NaturalTransformation<IO<
     }
 
     /**
-     * Constructs a {@link ConcurrentlyPerformingIO} that performs an {@link IO}
-     * concurrently, capturing the result of the operation as a {@link Try}.
-     * The {@link IO} will run in the supplied {@link Executor}, and will time
-     * out after the supplied {@link Duration}.
+     * Constructs a {@link ConcurrentlyPerformingIO} that performs an
+     * {@link IO} concurrently, capturing the result of the operation as a
+     * {@link Try}. The {@link IO} will run in the supplied {@link Executor},
+     * and will time out after the supplied {@link Duration}. In the event that
+     * a timeout occurs, the {@link IO} will continue to run asynchronously to
+     * completion.
      *
      * @param executor the executor to use
      * @param timeout  the timeout

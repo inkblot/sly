@@ -58,7 +58,8 @@ public final class Atom<A> {
      * the results of applying the given function, returning a tuple of the
      * original value and the updated value. When there is contention between
      * the update and another thread, the update will be retried. This can
-     * happen repeatedly until the update succeeds.
+     * result in multiple invocations of the given function, as the retries
+     * occur.
      *
      * @param f a function that effectfully produces the next value
      * @return an {@link IO} that will atomically update the current value
@@ -78,8 +79,8 @@ public final class Atom<A> {
      * Returns an {@link IO} that will atomically update the current value with
      * the results of applying the given function, returning the original
      * value. When there is contention between the update and another thread,
-     * the update will be retried. This can happen repeatedly until the update
-     * succeeds.
+     * the update will be retried. This can result in multiple invocations of
+     * the given function, as the retries occur.
      *
      * @param f a function that effectfully produces the next value
      * @return an {@link IO} that will atomically update the current value
@@ -92,8 +93,8 @@ public final class Atom<A> {
      * Returns an {@link IO} that will atomically update the current value with
      * the results of applying the given function, returning the updated value.
      * When there is contention between the update and another thread, the
-     * update will be retried. This can happen repeatedly until the update
-     * succeeds.
+     * update will be retried. This can result in multiple invocations of the
+     * given function, as the retries occur.
      *
      * @param f a function that effectfully produces the next value
      * @return an {@link IO} that will atomically update the current value
@@ -103,17 +104,17 @@ public final class Atom<A> {
     }
 
     /**
-     * Returns an {@link IO} atomically compares the current value with the
-     * given previous value, and if they are equal, sets the value to the given
-     * next value.
+     * Returns an {@link IO} that will atomically compare the current value
+     * with the given previous value, and if they are equal, sets the value to
+     * the given next value.
      *
-     * @param prev the value to compare against
-     * @param next the value to set
+     * @param previous the value to compare against
+     * @param next     the value to set
      * @return an {@link IO} that will atomically compare and set the current
      * value
      */
-    public IO<Boolean> compareAndSet(A prev, A next) {
-        return io(() -> HANDLE.compareAndSet(this, prev, next));
+    public IO<Boolean> compareAndSet(A previous, A next) {
+        return io(() -> HANDLE.compareAndSet(this, previous, next));
     }
 
     /**
@@ -128,7 +129,7 @@ public final class Atom<A> {
 
     /**
      * Return an {@link IO} that will set the value of the atom to the given
-     * value.
+     * value when invoked.
      *
      * @param a the new value
      * @return an {@link IO} that will set the value
