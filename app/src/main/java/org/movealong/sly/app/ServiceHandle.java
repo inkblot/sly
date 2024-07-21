@@ -19,9 +19,10 @@ import com.jnape.palatable.lambda.adt.hmap.TypeSafeKey;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import java.util.Objects;
+import java.lang.StackWalker.StackFrame;
 
 import static lombok.AccessLevel.PRIVATE;
+import static org.movealong.sly.jdk.Caller.caller;
 
 /**
  * A handle with non-fungible values that is used for binding {@link Service}s
@@ -34,9 +35,9 @@ import static lombok.AccessLevel.PRIVATE;
 @ToString
 @RequiredArgsConstructor(access = PRIVATE)
 public final class ServiceHandle<S> implements TypeSafeKey.Simple<Service<S>> {
-    private final String initializedAt;
+    private final StackFrame initializedAt;
 
     public static <S> ServiceHandle<S> create() {
-        return new ServiceHandle<>(StackWalker.getInstance().walk(s -> s.skip(1).findFirst().map(Objects::toString).orElse("unknown")));
+        return new ServiceHandle<>(caller());
     }
 }
