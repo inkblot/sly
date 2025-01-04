@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Nate Riffe
+ * Copyright (c) 2024-2025 Nate Riffe
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,18 @@ package org.movealong.sly.model;
 
 import com.jnape.palatable.lambda.adt.coproduct.CoProduct4;
 import com.jnape.palatable.lambda.functions.Fn1;
+import com.jnape.palatable.shoki.impl.StrictQueue;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.jnape.palatable.lambda.functions.Fn0.fn0;
-import static com.jnape.palatable.lambda.functions.builtin.fn2.Cons.cons;
-import static com.jnape.palatable.lambda.functions.builtin.fn2.Snoc.snoc;
-import static com.jnape.palatable.lambda.functions.builtin.fn2.ToCollection.toCollection;
-import static com.jnape.palatable.lambda.monoid.builtin.Concat.concat;
-import static java.util.Arrays.asList;
+import static com.jnape.palatable.lambda.functions.builtin.fn2.Intersperse.intersperse;
+import static com.jnape.palatable.lambda.functions.builtin.fn2.Map.map;
+import static com.jnape.palatable.lambda.monoid.builtin.Join.join;
+import static com.jnape.palatable.shoki.impl.StrictQueue.strictQueue;
+import static java.lang.String.format;
 import static lombok.AccessLevel.PRIVATE;
 import static org.movealong.sly.model.Failures.*;
 
@@ -65,11 +63,11 @@ public abstract class Failures implements CoProduct4<Message, Exceptional, Multi
     public Failures add(Failures another) {
         return new Multiple(another.projectC().match(
             fn0(() -> projectC().match(
-                fn0(() -> asList(this, another)),
-                snoc(another).diMapL(Multiple::getFailures))),
+                fn0(() -> strictQueue(this, another)),
+                these -> these.getFailures().snoc(another))),
             more -> projectC().match(
-                fn0(() -> cons(this, more.getFailures())),
-                these -> concat(these.getFailures(), more.getFailures()))));
+                fn0(() -> more.getFailures().cons(this)),
+                these -> these.getFailures().consAll(more.getFailures()))));
     }
 
     /**
@@ -93,7 +91,7 @@ public abstract class Failures implements CoProduct4<Message, Exceptional, Multi
      * @return The message failure
      */
     public static Failures message(String format, Object... args) {
-        return message(String.format(format, args));
+        return message(format(format, args));
     }
 
     /**
@@ -120,6 +118,11 @@ public abstract class Failures implements CoProduct4<Message, Exceptional, Multi
                            Fn1<? super Ascribed, ? extends R> ascribedFn) {
             return messageFn.apply(this);
         }
+
+        @Override
+        public String toString() {
+            return format("Failures(message=%s)", message);
+        }
     }
 
     @Value
@@ -138,13 +141,18 @@ public abstract class Failures implements CoProduct4<Message, Exceptional, Multi
                            Fn1<? super Ascribed, ? extends R> ascribedFn) {
             return exceptionalFn.apply(this);
         }
+
+        @Override
+        public String toString() {
+            return format("Failures(exception=%s)", exception);
+        }
     }
 
     @Value
-    @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
+    @EqualsAndHashCode(callSuper = false)
     @AllArgsConstructor(access = PRIVATE)
     public static class Multiple extends Failures {
-        Iterable<Failures> failures;
+        StrictQueue<Failures> failures;
 
         /**
          * {@inheritDoc}
@@ -157,9 +165,10 @@ public abstract class Failures implements CoProduct4<Message, Exceptional, Multi
             return multipleFn.apply(this);
         }
 
-        @EqualsAndHashCode.Include
-        private List<Failures> failures() {
-            return toCollection(ArrayList::new, getFailures());
+        @Override
+        public String toString() {
+            return format("Failures(multiple=[%s])", join()
+                .foldLeft("", intersperse(",", map(Object::toString, failures))));
         }
     }
 
@@ -168,7 +177,7 @@ public abstract class Failures implements CoProduct4<Message, Exceptional, Multi
     @AllArgsConstructor(access = PRIVATE)
     public static class Ascribed extends Failures {
         Label    ascription;
-        Failures failures;
+        Failures ascribed;
 
         /**
          * {@inheritDoc}
@@ -179,6 +188,13 @@ public abstract class Failures implements CoProduct4<Message, Exceptional, Multi
                            Fn1<? super Multiple, ? extends R> multipleFn,
                            Fn1<? super Ascribed, ? extends R> ascribedFn) {
             return ascribedFn.apply(this);
+        }
+
+        @Override
+        public String toString() {
+            return format("Failures(ascription=%s,ascribed=%s)",
+                          ascription.getValue(),
+                          ascribed);
         }
     }
 }

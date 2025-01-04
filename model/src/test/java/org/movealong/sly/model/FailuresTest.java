@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Nate Riffe
+ * Copyright (c) 2024-2025 Nate Riffe
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,18 +27,32 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.movealong.sly.matchers.jdk.IterableMatcher.iterates;
 import static org.movealong.sly.matchers.jdk.IterableMatcher.iteratesItemsThat;
 import static org.movealong.sly.matchers.lambda.JustMatcher.isJustThat;
+import static org.movealong.sly.model.Failures.exceptional;
 import static org.movealong.sly.model.Failures.message;
 import static org.movealong.sly.model.Label.label;
 import static org.movealong.sly.test.lambda.Tuple2Matcher.isTuple2That;
 
 class FailuresTest {
+
+    @Test
+    void toStringLooksGood() {
+        assertThat(message("a bad happened").toString(),
+                   equalTo("Failures(message=a bad happened)"));
+        assertThat(exceptional(new RuntimeException("oops")).toString(),
+                   equalTo("Failures(exception=java.lang.RuntimeException: oops)"));
+        assertThat(message("one").add(message("two")).toString(),
+                   equalTo("Failures(multiple=[Failures(message=one),Failures(message=two)])"));
+        assertThat(message("a bad happened").ascribe(label("yesterday")).toString(),
+                   equalTo("Failures(ascription=yesterday,ascribed=Failures(message=a bad happened))"));
+    }
+
     @Test
     void aggregates() {
-        assertThat(message("whoopie")
+        assertThat(message("whoopsie")
                        .add(message("daisy"))
                        .projectC()
                        .fmap(Multiple::getFailures),
-                   isJustThat(iterates(message("whoopie"),
+                   isJustThat(iterates(message("whoopsie"),
                                        message("daisy"))));
     }
 
@@ -68,7 +82,7 @@ class FailuresTest {
         assertThat(message("required value not present")
                        .ascribe(label("fieldName"))
                        .projectD()
-                       .fmap(a -> tuple(a.getAscription(), a.getFailures())),
+                       .fmap(both(Ascribed::getAscription, Ascribed::getAscribed)),
                    isJustThat(isTuple2That(
                        equalTo(label("fieldName")),
                        equalTo(message("required value not present")))));
@@ -81,7 +95,7 @@ class FailuresTest {
                        .ascribe(label("cause"))
                        .projectD()
                        .fmap(both(Ascribed::getAscription,
-                                  a -> a.getFailures()
+                                  a -> a.getAscribed()
                                         .projectC()
                                         .fmap(Multiple::getFailures))),
                    isJustThat(isTuple2That(equalTo(label("cause")),
@@ -97,7 +111,7 @@ class FailuresTest {
                        .projectC()
                        .fmap(Multiple::getFailures)
                        .fmap(map(Failures::projectD))
-                       .fmap(map(m -> m.fmap(a -> tuple(a.getAscription(), a.getFailures())))),
+                       .fmap(map(m -> m.fmap(a -> tuple(a.getAscription(), a.getAscribed())))),
                    isJustThat(iteratesItemsThat(
                        isJustThat(isTuple2That(equalTo(label("cause1")),
                                                equalTo(message("whoopsie")))),
