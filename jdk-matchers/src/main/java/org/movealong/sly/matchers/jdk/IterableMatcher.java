@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Nate Riffe
+ * Copyright (c) 2023-2025 Nate Riffe
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,16 +39,16 @@ import static org.movealong.sly.hamcrest.IndentingDescription.indentWith;
  * @param <E> the type of the elements
  */
 @AllArgsConstructor(access = PRIVATE)
-public class IterableMatcher<E> extends TypeSafeDiagnosingMatcher<Iterable<E>> {
+public class IterableMatcher<E> extends TypeSafeDiagnosingMatcher<Iterable<? extends E>> {
 
     private final Iterable<? extends Matcher<? super E>> matchers;
     private final String                                 typeDescriptor;
 
     @Override
-    protected boolean matchesSafely(Iterable<E> values, Description mismatchDescription) {
+    protected boolean matchesSafely(Iterable<? extends E> values, Description mismatchDescription) {
         mismatchDescription.appendText("was ").appendText(typeDescriptor);
         Iterator<? extends Matcher<? super E>> matcherIterator = matchers.iterator();
-        Iterator<E>                            valuesIterator  = values.iterator();
+        Iterator<? extends E> valuesIterator = values.iterator();
         int                                    index           = 0;
         boolean                                elementMatch    = true;
 
@@ -68,7 +68,7 @@ public class IterableMatcher<E> extends TypeSafeDiagnosingMatcher<Iterable<E>> {
             index++;
         }
 
-        List<E> surplus = toCollection(ArrayList::new, () -> valuesIterator);
+        List<? extends E> surplus = toCollection(ArrayList::new, () -> valuesIterator);
         if (!surplus.isEmpty()) {
             mismatchDescription.appendText("\n\t| with surplus elements:");
             for (E value : surplus) {
