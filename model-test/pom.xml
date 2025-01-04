@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2023 Nate Riffe
+  ~ Copyright (c) 2023-2025 Nate Riffe
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -46,6 +46,12 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.movealong</groupId>
+            <artifactId>sly-jdk-matchers</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
