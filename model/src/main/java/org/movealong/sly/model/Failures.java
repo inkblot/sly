@@ -33,11 +33,20 @@ import static lombok.AccessLevel.PRIVATE;
 import static org.movealong.sly.model.Failures.*;
 
 /**
- * {@link Failures} is a general purpose type for representing failure modes.
- * It is composable in two ways, both through the addition of new failures to
- * existing ones to create an aggregate, and by ascribing a failure to a cause
- * identified by a label. Basic singular failures are either messages in the
- * form of a {@link String} or exceptions.
+ * {@link Failures} is a type that represents a generic failure, and conveys a
+ * structured message. Typically, at the point of failure, the {@link Failures}
+ * object should be encapsulated in an implementation of the
+ * {@link SemanticError} interface. The {@link Failures} that is wrapped in
+ * this way is meant to satisfy the need to report a message for example via
+ * logging or a response body.
+ * <p>
+ * {@link Failures} is composable and this feature exists in two ways. Separate
+ * instances can be added together to create an aggregate, which allows
+ * scenarios in which multiple failures have occurred to express them as a
+ * single aggregate {@link Failures}. A failure can also be ascribed to a cause,
+ * identified by a {@link Label}. Singular failures come in two forms, either
+ * as a simple message expressed as a {@link String}, or as an exception
+ * expressed as a {@link Throwable}.
  */
 @NoArgsConstructor(access = PRIVATE)
 public abstract class Failures implements CoProduct4<Message, Exceptional, Multiple, Ascribed, Failures> {
