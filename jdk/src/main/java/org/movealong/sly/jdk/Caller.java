@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Nate Riffe
+ * Copyright (c) 2024-2025 Nate Riffe
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,9 @@ package org.movealong.sly.jdk;
 
 import lombok.NoArgsConstructor;
 
+/**
+ * Utility class for collecting information about the calling context.
+ */
 @NoArgsConstructor
 public class Caller {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Nate Riffe
+ * Copyright (c) 2023-2025 Nate Riffe
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,10 +62,26 @@ public class Labeled<A> implements
         return value;
     }
 
+    /**
+     * Creates a new {@link Labeled} instance with the given label and value.
+     *
+     * @param <A>   the type of the value
+     * @param label the label
+     * @param value the value
+     * @return a new {@link Labeled} instance
+     */
     public static <A> Labeled<A> labeled(Label label, A value) {
         return new Labeled<>(label, value);
     }
 
+    /**
+     * Returns a function that creates a {@link Labeled} instance with the given label
+     * and the value provided when the function is applied.
+     *
+     * @param <A>   the type of the value
+     * @param label the label
+     * @return a function that creates a {@link Labeled} instance
+     */
     public static <A> Fn1<A, Labeled<A>> labeled(Label label) {
         return a -> labeled(label, a);
     }
