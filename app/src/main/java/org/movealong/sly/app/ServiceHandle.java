@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Nate Riffe
+ * Copyright (c) 2024-2025 Nate Riffe
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,13 @@ import static org.movealong.sly.jdk.Caller.caller;
 public final class ServiceHandle<S> implements TypeSafeKey.Simple<Service<S>> {
     private final StackFrame initializedAt;
 
+    /**
+     * Creates a new {@link ServiceHandle} for a service of type S.
+     * The handle captures the stack frame where it was created for diagnostic purposes.
+     *
+     * @param <S> the service type
+     * @return a new {@link ServiceHandle}
+     */
     public static <S> ServiceHandle<S> create() {
         return new ServiceHandle<>(caller());
     }
