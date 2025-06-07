@@ -23,6 +23,9 @@ import org.hamcrest.TypeSafeDiagnosingMatcher;
 import static lombok.AccessLevel.PRIVATE;
 import static org.hamcrest.core.IsEqual.equalTo;
 
+/**
+ * Match a {@link Throwable} by its message.
+ */
 @AllArgsConstructor(access = PRIVATE)
 public class ThrowableMessageMatcher extends TypeSafeDiagnosingMatcher<Throwable> {
 
@@ -46,10 +49,24 @@ public class ThrowableMessageMatcher extends TypeSafeDiagnosingMatcher<Throwable
         return result;
     }
 
+    /**
+     * Creates a matcher that matches when the examined {@link Throwable} has a message
+     * that satisfies the specified matcher.
+     *
+     * @param messageMatcher the matcher to apply to the message of the examined {@link Throwable}
+     * @return a matcher that matches when the examined throwable has a message that satisfies the specified matcher
+     */
     public static Matcher<Throwable> hasMessageThat(Matcher<? super CharSequence> messageMatcher) {
         return new ThrowableMessageMatcher(messageMatcher);
     }
 
+    /**
+     * Creates a matcher that matches when the examined {@link Throwable} has a message
+     * that is equal to the specified string.
+     *
+     * @param message the string that the examined throwable's message is expected to equal
+     * @return a matcher that matches when the examined throwable has a message equal to the specified string
+     */
     public static Matcher<Throwable> hasMessageOf(String message) {
         return hasMessageThat(equalTo(message));
     }
