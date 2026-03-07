@@ -8,7 +8,7 @@ jobs:
   fix-parent-versions:
     runs-on: ubuntu-latest
     if: |
-      github.event.pull_request.user.login == 'github-actions[bot]' &&
+      startsWith(github.event.pull_request.head.ref, 'release-please--') &&
       startsWith(github.event.pull_request.title, 'chore(main): release') &&
       !endsWith(github.event.pull_request.title, '-SNAPSHOT')
 
