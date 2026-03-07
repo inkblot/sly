@@ -16,7 +16,41 @@ jobs:
     steps:
       - name: Run release-please
         uses: googleapis/release-please-action@v4
+        id: release-please
         with:
           token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      - name: Checkout PR branch
+        if: ${{ steps.release-please.outputs.pr && !steps.release-please.outputs.releases_created }}
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release-please.outputs.pr_head_ref }}
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+      - name: Set up JDK 11
+        if: ${{ steps.release-please.outputs.pr && !steps.release-please.outputs.releases_created }}
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'corretto'
+          java-version: '11'
+          cache: 'maven'
+
+      - name: Fix multi-module parent versions
+        if: ${{ steps.release-please.outputs.pr && !steps.release-please.outputs.releases_created }}
+        run: |
+          # Get version from root pom
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+
+          # Update all module versions consistently
+          mvn versions:set -DnewVersion=$VERSION -DprocessAllModules -DgenerateBackupPoms=false
+
+          # Check if there are changes
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "fix: update parent version references in child modules"
+            git push
+          fi
