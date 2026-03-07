@@ -28,7 +28,6 @@
 
     <name>sly-model</name>
     <artifactId>sly-model</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
