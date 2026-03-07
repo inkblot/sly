@@ -1,6 +1,0 @@
-#!/bin/bash
-set -eu
-
-_SELF="${0##*/}"
-_HERE="$(dirname $(realpath ${0}))"
-${_HERE}/../../concourse-maven-central-pipeline/create-pipeline ${_HERE}
