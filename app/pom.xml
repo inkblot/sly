@@ -28,7 +28,6 @@
 
     <name>sly-app</name>
     <artifactId>sly-app</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>

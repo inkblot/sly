@@ -28,7 +28,6 @@
 
     <name>sly-model-test</name>
     <artifactId>sly-model-test</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>

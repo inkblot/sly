@@ -28,7 +28,6 @@
 
     <name>sly-lambda-matchers</name>
     <artifactId>sly-lambda-matchers</artifactId>
-    <version>0.3.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
