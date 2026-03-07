@@ -32,11 +32,14 @@ jobs:
       - name: Get version from root pom
         id: version
         run: |
-          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          # Extract version directly from pom.xml without using Maven
+          # (Maven might fail if child modules reference broken parent versions)
+          VERSION=$(grep -m 1 '<version>' pom.xml | sed 's/.*<version>\(.*\)<\/version>.*/\1/' | tr -d ' ')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Update all module versions consistently
         run: |
+          # This will fix parent version references in child modules
           mvn versions:set -DnewVersion=${{ steps.version.outputs.version }} -DprocessAllModules -DgenerateBackupPoms=false
 
       - name: Check for changes
