@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Nate Riffe
+ * Copyright (c) 2023-2025 Nate Riffe
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,12 @@ import static lombok.AccessLevel.PRIVATE;
 public class Name implements WrappedValue<String>{
     String value;
 
+    /**
+     * Creates a new {@link Name} instance with the given value.
+     *
+     * @param value the string value of the name
+     * @return a new {@link Name} instance
+     */
     public static Name name(String value) {
         return new Name(value);
     }

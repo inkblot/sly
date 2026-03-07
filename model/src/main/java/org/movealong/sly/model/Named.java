@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Nate Riffe
+ * Copyright (c) 2023-2025 Nate Riffe
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,10 +62,26 @@ public class Named<A> implements
         return value;
     }
 
+    /**
+     * Creates a new {@link Named} instance with the given name and value.
+     *
+     * @param <A>   the type of the value
+     * @param name  the name
+     * @param value the value
+     * @return a new {@link Named} instance
+     */
     public static <A> Named<A> named(Name name, A value) {
         return new Named<>(name, value);
     }
 
+    /**
+     * Returns a function that creates a {@link Named} instance with the given name
+     * and the value provided when the function is applied.
+     *
+     * @param <A>  the type of the value
+     * @param name the name
+     * @return a function that creates a {@link Named} instance
+     */
     public static <A> Fn1<A, Named<A>> named(Name name) {
         return a -> named(name, a);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Nate Riffe
+ * Copyright (c) 2024-2025 Nate Riffe
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,10 @@ import com.jnape.palatable.lambda.adt.hmap.TypeSafeKey;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-import static java.lang.Thread.currentThread;
+import java.lang.StackWalker.StackFrame;
+
 import static lombok.AccessLevel.PRIVATE;
+import static org.movealong.sly.jdk.Caller.caller;
 
 /**
  * A handle with non-fungible values that is used for binding {@link Service}s
@@ -33,9 +35,16 @@ import static lombok.AccessLevel.PRIVATE;
 @ToString
 @RequiredArgsConstructor(access = PRIVATE)
 public final class ServiceHandle<S> implements TypeSafeKey.Simple<Service<S>> {
-    private final StackTraceElement initializedAt;
+    private final StackFrame initializedAt;
 
+    /**
+     * Creates a new {@link ServiceHandle} for a service of type S.
+     * The handle captures the stack frame where it was created for diagnostic purposes.
+     *
+     * @param <S> the service type
+     * @return a new {@link ServiceHandle}
+     */
     public static <S> ServiceHandle<S> create() {
-        return new ServiceHandle<>(currentThread().getStackTrace()[2]);
+        return new ServiceHandle<>(caller());
     }
 }
