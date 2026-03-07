@@ -3,6 +3,29 @@
 ---
 Important changes in each release of `sly` will be noted in this file.
 
+## [0.4.0](https://github.com/inkblot/sly/compare/sly-v0.3.1-SNAPSHOT...sly-v0.4.0) (2026-03-07)
+
+
+### Features
+
+* Add SemanticError and rewrite docs ([4fc9016](https://github.com/inkblot/sly/commit/4fc90165708977d14d6b71cd1034920bd2390813))
+* auto-fix parent versions in multi-module release PRs ([0c2ccf3](https://github.com/inkblot/sly/commit/0c2ccf39caa2a08553531d7902f141c30aa2debc))
+* create separate workflow to fix multi-module release PRs ([ceb0481](https://github.com/inkblot/sly/commit/ceb04815ead12760f423aaeaed848d1a91f0088a))
+* Implement a Failures model type ([7f8c52a](https://github.com/inkblot/sly/commit/7f8c52ad0256c72863ae77893080977cb0516ee7))
+* Implement matchers for all kinds of failures ([e797db2](https://github.com/inkblot/sly/commit/e797db291ea5d39a750eba70a1b740a01685f8cc))
+* Implement ThrowableCauseMatcher ([49da32b](https://github.com/inkblot/sly/commit/49da32b2b59c3d0673a652f35336c63e49a004d4))
+* Implement ThrowableEventuallyMatcher ([3a09cf5](https://github.com/inkblot/sly/commit/3a09cf5ef1fd419e9a56857ba06af41aefbdfb5a))
+* Reimplement hamcrest's ThrowableMessageMatcher ([74d425d](https://github.com/inkblot/sly/commit/74d425dd3215df82d6b19944b25509b99a6e8db8))
+
+
+### Bug Fixes
+
+* Add missing Javadoc ([468635c](https://github.com/inkblot/sly/commit/468635cffe74a0f7aa928eabb76a0a69efb326a3))
+* check branch name instead of PR author ([c97237e](https://github.com/inkblot/sly/commit/c97237ebfdf5ec21a5b13293891dfb08eef75e37))
+* Improve flexibility of IterableMatcher ([9a7fc6c](https://github.com/inkblot/sly/commit/9a7fc6cc5a28b34e17958dda9a7a161a91e5d938))
+* remove redundant version tags from child modules ([7f423c3](https://github.com/inkblot/sly/commit/7f423c3f163aaf22bac7ff3d5932b39e79f7b9bc))
+* set manifest to current SNAPSHOT version ([a42aaba](https://github.com/inkblot/sly/commit/a42aabae68085ce3a8b333111160c96ac865c895))
+
 ## [Unreleased]
 
 ### Added
