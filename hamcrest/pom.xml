@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.movealong</groupId>
         <artifactId>sly</artifactId>
-        <version>0.4.0</version>
+        <version>0.4.1-SNAPSHOT</version>
     </parent>
 
     <name>sly-hamcrest</name>
